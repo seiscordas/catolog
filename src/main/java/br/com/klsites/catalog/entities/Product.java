@@ -13,7 +13,7 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
+    //@NonNull
     private Long id;
     private String name;
     @Column(columnDefinition = "TEXT")

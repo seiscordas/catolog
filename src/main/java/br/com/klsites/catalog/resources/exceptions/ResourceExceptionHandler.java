@@ -15,7 +15,7 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;
-                StandardError error = new StandardError();
+        StandardError error = new StandardError();
         error.setTimestamp(Instant.now());
         error.setStatus(status.value());
         error.setError("Resource not found");
