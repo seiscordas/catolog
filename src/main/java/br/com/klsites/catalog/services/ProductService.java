@@ -44,7 +44,7 @@ public class ProductService {
     public ProductDTO insert(ProductDTO ProductDTO) {
         Product entity = new Product();
         copyDtoToEntity(ProductDTO, entity);
-        //entity.setName(ProductDTO.getName());
+        entity = repository.save(entity);
         return new ProductDTO(entity);
 
     }
