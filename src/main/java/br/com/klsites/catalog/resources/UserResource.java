@@ -1,6 +1,7 @@
 package br.com.klsites.catalog.resources;
 
 import br.com.klsites.catalog.dto.UserDTO;
+import br.com.klsites.catalog.dto.UserInsertDTO;
 import br.com.klsites.catalog.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,10 +31,10 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO UserDTO) {
-        UserDTO = service.insert(UserDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(UserDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(UserDTO);
+    public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto) {
+        UserDTO newDTO = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping("/{id}")

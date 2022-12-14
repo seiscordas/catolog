@@ -2,6 +2,7 @@ package br.com.klsites.catalog.services;
 
 import br.com.klsites.catalog.dto.RoleDTO;
 import br.com.klsites.catalog.dto.UserDTO;
+import br.com.klsites.catalog.dto.UserInsertDTO;
 import br.com.klsites.catalog.entities.Role;
 import br.com.klsites.catalog.entities.User;
 import br.com.klsites.catalog.repositories.RoleRepository;
@@ -13,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository repository;
 
@@ -42,9 +46,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO insert(UserDTO userDTO) {
+    public UserDTO insert(UserInsertDTO dto) {
         User entity = new User();
-        copyDtoToEntity(userDTO, entity);
+        copyDtoToEntity(dto, entity);
+        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = repository.save(entity);
         return new UserDTO(entity);
 
