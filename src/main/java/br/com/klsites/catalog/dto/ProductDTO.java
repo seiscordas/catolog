@@ -5,6 +5,9 @@ import br.com.klsites.catalog.entities.Product;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +16,14 @@ import java.util.Set;
 @Setter
 public class ProductDTO {
     private Long id;
+    @NotBlank(message = "Campo requerido")
     private String name;
+    @NotBlank(message = "Campo requerido")
     private String description;
+    @Positive(message = "Preço deve ser um valor positivo")
     private Double price;
     private String imgUrl;
+    @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();

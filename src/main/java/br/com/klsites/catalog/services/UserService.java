@@ -3,6 +3,7 @@ package br.com.klsites.catalog.services;
 import br.com.klsites.catalog.dto.RoleDTO;
 import br.com.klsites.catalog.dto.UserDTO;
 import br.com.klsites.catalog.dto.UserInsertDTO;
+import br.com.klsites.catalog.dto.UserUpdateDTO;
 import br.com.klsites.catalog.entities.Role;
 import br.com.klsites.catalog.entities.User;
 import br.com.klsites.catalog.repositories.RoleRepository;
@@ -56,7 +57,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO productDTO) {
+    public UserDTO update(Long id, UserUpdateDTO productDTO) {
         try {
             User entity = repository.getReferenceById(id);
             copyDtoToEntity(productDTO, entity);
