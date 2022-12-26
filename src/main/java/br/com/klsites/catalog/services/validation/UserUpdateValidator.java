@@ -4,7 +4,6 @@ import br.com.klsites.catalog.dto.UserUpdateDTO;
 import br.com.klsites.catalog.entities.User;
 import br.com.klsites.catalog.repositories.UserRepository;
 import br.com.klsites.catalog.resources.exceptions.FieldMessage;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
