@@ -45,11 +45,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("klebermart")
-                .secret(passwordEncoder.encode("seiscordas"))
+                .withClient(clientId)
+                .secret(passwordEncoder.encode(clientSecret))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password")
-                .accessTokenValiditySeconds(86400);
+                .accessTokenValiditySeconds(jwtDuration);
     }
 
     @Override
