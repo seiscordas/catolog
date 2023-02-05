@@ -1,0 +1,6 @@
+FROM openjdk:11
+VOLUME /tmp
+EXPOSE 8080
+ADD ./target/product-catalog-1.0-SNAPSHOT.jar kl-product-catalog.jar
+ENTRYPOINT ["java", "-jar", "/kl-product-catalog.jar"]
+

@@ -1,19 +1,23 @@
 package br.com.klsites.catalog.entities;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@NonNull
     private Long id;
     private String name;
     @Column(columnDefinition = "TEXT")
@@ -31,9 +35,11 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @ToString.Exclude
     Set<Category> categories = new HashSet<>();
 
-    public Product(){
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 
     public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
@@ -43,5 +49,18 @@ public class Product {
         this.price = price;
         this.imgUrl = imgUrl;
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Product product = (Product) o;
+        return id != null && Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

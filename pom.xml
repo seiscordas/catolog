@@ -10,13 +10,13 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.klsites</groupId>
-	<artifactId>kl</artifactId>
+	<artifactId>product-catalog</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>Product Catalog</name>
+	<name>product-catalog</name>
 	<description>Product Catalog</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 	</properties>
 
@@ -84,6 +84,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
 			</plugin>
 		</plugins>
 	</build>

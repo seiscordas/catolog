@@ -3,7 +3,6 @@ package br.com.klsites.catalog.tests;
 import br.com.klsites.catalog.dto.ProductDTO;
 import br.com.klsites.catalog.entities.Category;
 import br.com.klsites.catalog.entities.Product;
-import br.com.klsites.catalog.entities.Role;
 
 import java.time.Instant;
 

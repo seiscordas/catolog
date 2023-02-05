@@ -17,20 +17,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepository repository;
-    //private Page<Product> product;
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(Pageable pageable) {
-        Page<Product> product = repository.findAll(pageable);
-        return product.map(ProductDTO::new);
+    public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
+        List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
+        Page<Product> page = repository.find(categories, name, pageable);
+        repository.findProductsWithCategories(page.getContent());
+        return page.map(x -> new ProductDTO(x, x.getCategories()));
     }
 
     @Transactional(readOnly = true)
@@ -52,7 +55,6 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id, ProductDTO productDTO) {
         try {
-            //Product entity = repository.getReferenceById(id);
             Product entity = repository.getOne(id);
             copyDtoToEntity(productDTO, entity);
             entity = repository.save(entity);
@@ -80,7 +82,6 @@ public class ProductService {
 
         entity.getCategories().clear();
         for(CategoryDTO categoryDTO : dto.getCategories()){
-            //Category category = categoryRepository.getReferenceById(categoryDTO.getId());
             Category category = categoryRepository.getOne(categoryDTO.getId());
             entity.getCategories().add(category);
         }
